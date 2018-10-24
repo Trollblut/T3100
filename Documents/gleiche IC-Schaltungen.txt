@@ -1,0 +1,37 @@
+Gleiche IC-Schaltungen: 
+
+1) 
+1+2->3
+4+5->6 
+7 GND
+14 VCC
+13+12->11
+10+9->8
+
+74LS00 NAND
+74LS08 AND
+74LS32 OR 
+
+2) 
+74LS02 
+
+3) 
+74LS04 
+74LS14
+
+4)
+74LS10
+74LS27
+
+5)
+74LS21
+
+6) 
+74LS51
+
+7) 
+Schieberegister 
+
+
+
+
