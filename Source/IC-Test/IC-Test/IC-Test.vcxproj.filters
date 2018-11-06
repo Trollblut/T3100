@@ -24,9 +24,21 @@
     <ClInclude Include="debouncedButton.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ClickButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RepeatButton.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="debouncedButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClickButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RepeatButton.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

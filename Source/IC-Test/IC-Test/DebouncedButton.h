@@ -1,19 +1,22 @@
 #pragma once
 #include "Arduino.h"
-class DebouncedButton
+class AbstractDebouncedButton
 {
 public:
-	DebouncedButton(byte port);
-	~DebouncedButton();
+	AbstractDebouncedButton(byte port);
+	~AbstractDebouncedButton();
 
 	bool isPressed();
-	void handleButton(); 
+	virtual void handleButton() = 0; 
+
+protected:
+	void handleDebounce();
+	bool debouncedState;
+	bool click;
 
 private: 
 	byte port; 
-	bool debouncedState;
 	bool transitionPhase; 
-	bool click;
 
 	unsigned long transitionBegin ;
 

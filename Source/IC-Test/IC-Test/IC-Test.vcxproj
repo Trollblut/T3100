@@ -112,11 +112,15 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ClickButton.h" />
     <ClInclude Include="DebouncedButton.h" />
+    <ClInclude Include="RepeatButton.h" />
     <ClInclude Include="__vm\.IC-Test.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ClickButton.cpp" />
     <ClCompile Include="DebouncedButton.cpp" />
+    <ClCompile Include="RepeatButton.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

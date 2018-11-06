@@ -4,19 +4,20 @@
 const unsigned long debounceWait = 25;
 
 
-DebouncedButton::DebouncedButton(byte port)
+AbstractDebouncedButton::AbstractDebouncedButton(byte port)
 {
 	this->port = port;
 	debouncedState = false;
+	click = false;
 	pinMode(port, INPUT);
 	transitionPhase = false;
 }
 
-DebouncedButton::~DebouncedButton()
+AbstractDebouncedButton::~AbstractDebouncedButton()
 {
 }
 
-bool DebouncedButton::isPressed()
+bool AbstractDebouncedButton::isPressed()
 {
 	if (click) {
 		click = false;
@@ -25,7 +26,7 @@ bool DebouncedButton::isPressed()
 	return false;
 }
 
-void DebouncedButton::handleButton()
+void AbstractDebouncedButton::handleDebounce()
 {
 	bool state = digitalRead(port);
 
@@ -37,10 +38,6 @@ void DebouncedButton::handleButton()
 		else if (millis() - transitionBegin >= debounceWait) {
 			debouncedState = !debouncedState;
 			transitionPhase = false;
-			if (!debouncedState) {
-				click = true;
-
-			}
 		}
 	}
 	else
