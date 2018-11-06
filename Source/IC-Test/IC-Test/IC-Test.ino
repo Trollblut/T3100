@@ -1,7 +1,10 @@
+#include <TFT.h>
 #include "Arduino.h"
 #include "DebouncedButton.h"
 #include "RepeatButton.h"
+#include "Screen.h"
 #include "ClickButton.h"
+#include "Menu.h"
 
 #
 /*
@@ -36,7 +39,25 @@ void handleButtons() {
 	}
 }
 #pragma endregion
+#pragma region screenSetup 
 
+#define CS   10
+#define DC   9
+#define RESET 8 
+Screen* screen = (Screen*)NULL;
+void setupScreen() {
+	screen = new Screen(CS,DC,RESET);
+}
+#pragma endregion
+#pragma region menuSetup 
+
+char* mainMenuItems[] = { "Automatische Erkennung","Auswahl"};
+char* autoDetectItems[] = { "Bitte IC einsetzen und bestätigen." };
+char* directTestItems[] = { "IC 1", "IC2" };
+
+
+
+#pragma endregion
 int zaehler = 0;
 int lasthit = 0;
 // the setup function runs once when you press reset or power the board
@@ -44,6 +65,7 @@ void setup() {
 
 	Serial.begin(9600);
 	setupButtons();
+	setupScreen();
 }
 int count1 = 0;
 int count2 = 0;
