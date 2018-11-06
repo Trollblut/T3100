@@ -1,3 +1,6 @@
+#include "Arduino.h"
+#include "DebouncedButton.h"
+
 /*
  Name:		IC_Test.ino
  Created:	24.10.2018 12:43:21
@@ -7,27 +10,26 @@
 #define button1 45
 #define button2 6
 
+
+DebouncedButton* buttons[4];
 int zaehler = 0;
 int lasthit = 0;
 // the setup function runs once when you press reset or power the board
 void setup() {
 
 	Serial.begin(9600);
-	pinMode(button1, INPUT);
-	pinMode(button2, INPUT);
+	buttons[0] = new DebouncedButton(11);
 	
 }
+int count = 0;
 
 // the loop function runs over and over again until power down or reset
 void loop() {
-	int blub = digitalRead(button1);
-	int blub2 = digitalRead(button2);
-	
-	if (blub == 1 && lasthit + 500 < millis())
-	{
-		zaehler++;
-		lasthit = millis();
-		Serial.println(zaehler);
-	}
+	buttons[0]->handleButton();
 
+	if (buttons[0]->isPressed()) {
+		Serial.println("Boo!");
+		Serial.println(++count);
+
+	}
 }
