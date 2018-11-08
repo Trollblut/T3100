@@ -48,7 +48,7 @@ const char* mainMenuItems[] = { "Automatische Erkennung","Auswahl"};
 const int mainMenuItemCount = sizeof(mainMenuItems) / sizeof(char*);
 const char* autoDetectItems[] = { "Bitte IC einsetzen","und bestaetigen." };
 const int autoDetectItemCount = sizeof(autoDetectItems) / sizeof(char*);
-const char* directTestItems[] = { "74LS00", "74LS02","74LS04", "74LS08","74LS10", "74LS14","74LS21", "I74LS27","74LS32 ", "74LS51", "74LS194A"};
+const char* directTestItems[] = { "74LS00", "74LS02","74LS04", "74LS08","74LS10", "74LS14","74LS21", "74LS27","74LS32 ", "74LS51", "74LS194A"};
 const int directTestItemCount = sizeof(directTestItems) / sizeof(char*);
 
 Menu* mainMenu;
