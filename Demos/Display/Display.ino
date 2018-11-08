@@ -1,9 +1,6 @@
 #include <TFT.h> // Hardware-specific library
 #include <SPI.h>
 
-//#define CS   10
-//#define DC   9
-//#define RESET  8
 
 #define SCLK 52
 #define MOSI 51
