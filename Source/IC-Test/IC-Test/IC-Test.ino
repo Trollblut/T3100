@@ -6,13 +6,6 @@
 #include "ClickButton.h"
 #include "Menu.h"
 
-#
-/*
- Name:		IC_Test.ino
- Created:	24.10.2018 12:43:21
- Author:	mohr_s
-*/
-
 #pragma region buttonSetup 
 
 #define ButtonCount 4
@@ -51,26 +44,51 @@ void setupScreen() {
 #pragma endregion
 #pragma region menuSetup 
 
-char* mainMenuItems[] = { "Automatische Erkennung","Auswahl"};
-char* autoDetectItems[] = { "Bitte IC einsetzen und bestätigen." };
-char* directTestItems[] = { "IC 1", "IC2" };
+const char* mainMenuItems[] = { "Automatische Erkennung","Auswahl"};
+const int mainMenuItemCount = sizeof(mainMenuItems) / sizeof(char*);
+const char* autoDetectItems[] = { "Bitte IC einsetzen","und bestaetigen." };
+const int autoDetectItemCount = sizeof(autoDetectItems) / sizeof(char*);
+const char* directTestItems[] = { "IC 1", "IC 2","IC 3", "IC 4","IC 5", "IC 6","IC 7", "IC 8","IC 9", "IC 10" };
+const int directTestItemCount = sizeof(directTestItems) / sizeof(char*);
 
+Menu* mainMenu;
+Menu* autoDetectMenu;
+Menu* directTestMenu;
+Menu* currentMenu;
 
+void setupMenus() {
+	auto toMainMenu = [&](int index) { currentMenu = mainMenu; };
+	mainMenu = new Menu(mainMenuItemCount, mainMenuItems, NULL, [&](int index) {
+		switch (index) {
+		case 0:
+			currentMenu = autoDetectMenu;
+			break;
+		case 1:
+			currentMenu = directTestMenu;
+			break;
+		default:
+			break;
+		}
+	});
+	autoDetectMenu = new Menu(autoDetectItemCount, autoDetectItems, toMainMenu, NULL);
+	directTestMenu = new Menu(directTestItemCount, directTestItems, toMainMenu, NULL);
+	currentMenu = mainMenu;
+}
 
 #pragma endregion
-int zaehler = 0;
-int lasthit = 0;
+
 // the setup function runs once when you press reset or power the board
 void setup() {
 
 	Serial.begin(9600);
 	setupButtons();
+	setupMenus();
 	setupScreen();
 }
-int count1 = 0;
-int count2 = 0;
 
 // the loop function runs over and over again until power down or reset
 void loop() {
 	handleButtons();
+	currentMenu->handleInput(buttons[0]->isPressed(), buttons[1]->isPressed(), buttons[2]->isPressed(), buttons[3]->isPressed());
+	screen->drawMenu(currentMenu);
 }
