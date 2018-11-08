@@ -4,3 +4,8 @@ https://www.arduino.cc/en/Reference/SPI
 https://www.arduino.cc/reference/en/language/functions/communication/serial/
 https://www.arduino.cc/en/Guide/TFTtoBoards
 https://www.arduino.cc/en/Serial/Write
+
+
+https://www.overleaf.com/project
+Email: nina.roehm@gmail.com
+Passwort: Lisastinkt1234 
