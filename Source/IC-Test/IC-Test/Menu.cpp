@@ -10,6 +10,7 @@ Menu::Menu(int itemCount, char ** itemList, void back(int index), void forward(i
 	this->back = back;
 	this->forward = forward;
 	selectedIndex = 0;
+	repaint = false;
 }
 
 Menu::~Menu()
@@ -54,4 +55,18 @@ char * Menu::getItem(int index)
 int Menu::getItemCount()
 {
 	return itemCount;
+}
+
+void Menu::queueRepaint()
+{
+	repaint = true;
+}
+
+bool Menu::requiresRepaint()
+{
+	if (repaint) {
+		repaint = false;
+		return true;
+	}
+	return false;
 }

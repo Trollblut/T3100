@@ -11,7 +11,11 @@ public:
 	char* getItem(int index);
 	int getItemCount();
 
+	void queueRepaint();
+	bool requiresRepaint();
+
 private:
+	bool repaint;
 	int selectedIndex;
 	int itemCount;
 	char** itemList;

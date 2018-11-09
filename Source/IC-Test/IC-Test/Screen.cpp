@@ -1,10 +1,10 @@
 #include "Screen.h"
 #include "TFT.h"
 
-#define LineCount 4
-#define OffsetX 10
+#define LineCount 6
+#define OffsetX 3
 #define OffsetY 10
-#define LineHight 20
+#define LineHight 19
 #define ActiveColor 0xFFFF
 #define InactiveColor 0x8888
 
@@ -24,38 +24,42 @@ Screen::~Screen()
 {
 }
 
+char buffer[64];
+
+char* getString(char *destination, int index, char* src) {
+	buffer[0] = ' ';
+	itoa(index, index < 10 ? buffer + 1 : buffer, 10);
+
+	strcat(destination, ": ");
+	strcat(destination, src);
+	return destination;
+
+}
 void Screen::drawMenu(Menu * menu)
 {
 	int selectedItem = menu->getSelectedIndex();
-	if (menu != paintedMenu || selectedItem / LineCount != paintedIndex / LineCount) {
-		Serial.println("Print new");
+	if (menu->requiresRepaint() || menu != paintedMenu || selectedItem / LineCount != paintedIndex / LineCount) {
 		screen->background(0, 0, 0);
 		int offset = (selectedItem / LineCount) * LineCount;
 		int limit = min(menu->getItemCount() - offset, LineCount);
 		int selectedLine = selectedItem % LineCount;
-		Serial.println(limit);
 		for (int i = 0; i < limit; i++) {
-			Serial.println(i);
 			if (i == selectedLine) {
-				Serial.println("Active");
 				screen->stroke(255, 255, 255);
 			}
 			else {
-				Serial.println("Inctive");
 				screen->stroke(85, 85, 85);
 			}
-			screen->text(menu->getItem(offset + i), OffsetX, OffsetY + i * LineHight);
-			Serial.println(menu->getItem(offset + i));
+			screen->text(getString(buffer, offset + i + 1, menu->getItem(offset + i)), OffsetX, OffsetY + i * LineHight);
 		}
 		paintedMenu = menu;
 		paintedIndex = selectedItem;
 	}
 	else if (paintedIndex != selectedItem) {
-		Serial.println("Adapt selection");
 		screen->stroke(255, 255, 255);
-		screen->text(menu->getItem(selectedItem), OffsetX, OffsetY + (selectedItem % LineCount) * LineHight);
+		screen->text(getString(buffer, selectedItem + 1, menu->getItem(selectedItem)), OffsetX, OffsetY + (selectedItem % LineCount) * LineHight);
 		screen->stroke(85, 85, 85);
-		screen->text(menu->getItem(paintedIndex), OffsetX, OffsetY + (paintedIndex % LineCount) * LineHight);
+		screen->text(getString(buffer, paintedIndex + 1, menu->getItem(paintedIndex)), OffsetX, OffsetY + (paintedIndex % LineCount) * LineHight);
 		paintedIndex = selectedItem;
 	}
 }
